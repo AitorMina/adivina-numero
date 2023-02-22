@@ -10,12 +10,14 @@ const bodyField = document.querySelector('body')
 
 //2do paso:crear las variables que necesitamos
 
-let score = 20
+let score
 let highscore = 0
 
 const MIN_NUMBER = 1
 const MAX_NUMBER = 20
-const secretNumber = Math.trunc(Math.random() * MAX_NUMBER) + MIN_NUMBER
+let secretNumber
+
+fnInitApp()
 
 //3er paso: añadir un listener al checkButton , agregarle un evento y mostrar
 //un mensaje que diga si el número es mayor o menor en el campo
@@ -48,4 +50,14 @@ function fnCheckButton() {
     score--
     scoreField.textContent = score
   }
+}
+againButton.addEventListener('click', fnInitApp)
+
+function fnInitApp() {
+  scoreField.textContent = score = 20
+  bodyField.style.backgroundColor = 'black'
+  guessField.value = ''
+  mostrarMensaje('Start guessing...')
+  numberField.textContent = '?'
+  secretNumber = Math.trunc(Math.random() * MAX_NUMBER) + MIN_NUMBER
 }
