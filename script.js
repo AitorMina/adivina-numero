@@ -6,11 +6,12 @@ const guessField = document.querySelector('.guess')
 const messageField = document.querySelector('.message')
 const highscoreField = document.querySelector('.highscore')
 const numberField = document.querySelector('.number')
+const bodyField = document.querySelector('body')
 
 //2do paso:crear las variables que necesitamos
 
 let score = 20
-const highscore = 0
+let highscore = 0
 
 const MIN_NUMBER = 1
 const MAX_NUMBER = 20
@@ -20,17 +21,31 @@ const secretNumber = Math.trunc(Math.random() * MAX_NUMBER) + MIN_NUMBER
 //un mensaje que diga si el número es mayor o menor en el campo
 //messageField
 
-checkButton.addEventListener('click', function () {
-  const number = guessField.value
-  if (number < secretNumber) {
-    messageField.textContent = 'El número es menor'
-    score--
-    scoreField.textContent = score
-  } else if (number > secretNumber) {
-    messageField.textContent = 'El número es mayor'
-    score--
-    scoreField.textContent = score
+checkButton.addEventListener('click', fnCheckButton)
+
+function mostrarMensaje(mensaje) {
+  messageField.textContent = mensaje
+}
+
+function fnCheckButton() {
+  // aunque guessField sea un input number, su valor es string
+  // lo pasamos a number
+  const number = Number(guessField.value)
+  if (number === secretNumber) {
+    mostrarMensaje('¡Acertaste!')
+    if (score > highscore) highscore = highscoreField.textContent = score
+    // cambiar color del fondo, mostrar numero secreto
+    numberField.textContent = secretNumber
+    bodyField.style.backgroundColor = 'aqua'
+  } else if (score === 1) {
+    mostrarMensaje('Perdiste')
+    scoreField.textContent = 0
+    bodyField.style.backgroundColor = 'red'
   } else {
-    messageField.textContent = '¡Acertaste!'
+    const mensaje =
+      number > secretNumber ? 'El número es mayor' : 'El número es menor'
+    mostrarMensaje(mensaje)
+    score--
+    scoreField.textContent = score
   }
-})
+}
