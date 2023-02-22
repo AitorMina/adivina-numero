@@ -12,7 +12,7 @@ const bodyField = document.querySelector('body')
 
 let score
 let highscore = 0
-
+let nuevoHighscore
 const MIN_NUMBER = 1
 const MAX_NUMBER = 20
 let secretNumber
@@ -35,7 +35,11 @@ function fnCheckButton() {
   const number = Number(guessField.value)
   if (number === secretNumber) {
     mostrarMensaje('¡Acertaste!')
-    if (score > highscore) highscore = highscoreField.textContent = score
+
+    if (score > highscore) {
+      highscore = highscoreField.textContent = score
+      localStorage.setItem('highscore', nuevoHighscore)
+    }
     // cambiar color del fondo, mostrar numero secreto
     numberField.textContent = secretNumber
     bodyField.style.backgroundColor = 'aqua'
@@ -51,9 +55,12 @@ function fnCheckButton() {
     scoreField.textContent = score
   }
 }
+
 againButton.addEventListener('click', fnInitApp)
 
 function fnInitApp() {
+  highscore = localStorage.getItem('highscore')
+
   scoreField.textContent = score = 20
   bodyField.style.backgroundColor = 'black'
   guessField.value = ''
