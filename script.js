@@ -11,8 +11,7 @@ const bodyField = document.querySelector('body')
 //2do paso:crear las variables que necesitamos
 
 let score
-let highscore = 0
-let nuevoHighscore
+let highscore
 const MIN_NUMBER = 1
 const MAX_NUMBER = 20
 let secretNumber
@@ -38,7 +37,7 @@ function fnCheckButton() {
 
     if (score > highscore) {
       highscore = highscoreField.textContent = score
-      localStorage.setItem('highscore', nuevoHighscore)
+      localStorage.setItem('highscore', highscore)
     }
     // cambiar color del fondo, mostrar numero secreto
     numberField.textContent = secretNumber
@@ -59,11 +58,8 @@ function fnCheckButton() {
 againButton.addEventListener('click', fnInitApp)
 
 function fnInitApp() {
-  highscore = localStorage.getItem('highscore')
-  if (highscore === null) {
-    highscore = 0
-    localStorage.setItem('highscore', highscore)
-  }
+  highscore = Number(localStorage.getItem('highscore')) || 0
+  highscoreField.textContent = highscore
   scoreField.textContent = score = 20
   bodyField.style.backgroundColor = 'black'
   guessField.value = ''
