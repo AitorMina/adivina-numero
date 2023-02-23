@@ -60,7 +60,10 @@ againButton.addEventListener('click', fnInitApp)
 
 function fnInitApp() {
   highscore = localStorage.getItem('highscore')
-
+  if (highscore === null) {
+    highscore = 0
+    localStorage.setItem('highscore', highscore)
+  }
   scoreField.textContent = score = 20
   bodyField.style.backgroundColor = 'black'
   guessField.value = ''
